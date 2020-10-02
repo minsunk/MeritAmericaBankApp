@@ -7,15 +7,15 @@ public class AccountHolder {
 	private CheckingAccount myCheckingAccount;
 	private SavingsAccount mySavingsAccount;
 	
-	public static void AccountHolder() {
-		myFisrtName = "";
+	public AccountHolder() {
+		myFirstName = "";
 		myMiddleName = "";
 		myLastName =  "";
 		mySsn = "";
-		myCheckingAccount = new CheckingAccount(0);
-		mySavingsAccount = new SavingsAccount(0);
+		myCheckingAccount = new CheckingAccount(0.0);
+		mySavingsAccount = new SavingsAccount(0.0);
 	}
-	public static void AccountHolder(String firstName, String middleName, String lastName, String ssn,
+	public AccountHolder(String firstName, String middleName, String lastName, String ssn,
 			double checkingAccountOpeningBalance, double savingAccountOpeningBalance) {
 		myFirstName = firstName;
 		myMiddleName = middleName;
@@ -24,34 +24,51 @@ public class AccountHolder {
 		myCheckingAccount = new CheckingAccount(checkingAccountOpeningBalance);
 		mySavingsAccount = new SavingsAccount(savingAccountOpeningBalance);
 	}
+	
 	public String getFirstName() {
 		return myFirstName;
 	}
-	public String setFirstName(String firstName) {
+	
+	public void setFirstName(String firstName) {
 		myFirstName = firstName;
-	} 
+	}
+	
 	public String getMiddleName(String middleName) {
 		return myMiddleName;
 	}
-	public String setMiddleName(String middleName) {
+	
+	public void setMiddleName(String middleName) {
 		myMiddleName = middleName;
 	}
 	public String getLastName() {
 		return myLastName;
 	}
-	public String setLastName(String lastName) {
+	
+	public void setLastName(String lastName) {
 		myLastName = lastName;
 	}
+	
 	public String getSSN() {
-		return ssn;
+		return mySsn;
 	}
-	public String setSSN()
+	
+	public void setSSN(String ssn) {
 		mySsn = ssn;
 	}
+
 	public CheckingAccount getCheckingAccount() {
 		return myCheckingAccount;
 	}
+	
 	public CheckingAccount getSavingsAccount() {
 		return mySavingsAccount;
+	}
+	
+	public String toString(){
+		return "Name: " + myFirstName + " " + myMiddleName + " " + myLastName + "\n" +
+			"SSN: " + mySsn + "\n" + 
+			myCheckingAccount.toString() +
+			mySavingsAccount.toString();
+					
 	}
 }
