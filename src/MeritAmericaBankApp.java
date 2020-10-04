@@ -2,7 +2,7 @@ public class MeritAmericaBankApp {
 
 	public static void main(String args[]) {
 		// 1. Instantiate an account holder with a checkings balance of $100 and a savings balance of $1000
-		AccountHolder firstAccount = new AccountHolder("Minsun", " ", "Kim", "208995392", 100.0, 1000.0);
+		AccountHolder firstAccount = new AccountHolder("Minsun", "", "Kim", "111111111", 100.0, 1000.0);
 		
 		// 2. Display the account holder's toString() output
 		System.out.println(firstAccount.toString());
@@ -22,8 +22,14 @@ public class MeritAmericaBankApp {
 		System.out.println(firstAccount.getSavingsAccount().toString());
 		
 		// 7. Instantiate another account holder with a checking balance of $200 and a savings balance of $500
-		AccountHolder secondAccount = new AccountHolder("Jihan", " ", "Joo", "698168539", 200.0, 500.0);
-		
+		//AccountHolder secondAccount = new AccountHolder("Jihan", "", "Joo", "222222222", 200.0, 500.0);
+		AccountHolder secondAccount = new AccountHolder();
+		secondAccount.setFirstName("Jihan");
+		secondAccount.setMiddleName("");
+		secondAccount.setLastName("Joo");
+		secondAccount.setSSN("222222222");
+		secondAccount.getCheckingAccount().deposit(200.0);
+		secondAccount.getSavingsAccount().deposit(500.0);
 		// 8. Deposit -$500 into the checking account
 		secondAccount.getCheckingAccount().deposit(-500.0);
 		
@@ -31,7 +37,7 @@ public class MeritAmericaBankApp {
 		secondAccount.getSavingsAccount().withdraw(600.0);
 		
 		// 10. Dispaly the second account holder's toString() output
-		System.out.println(secondAccount.getSavingsAccount().toString());
+		System.out.println(secondAccount.toString());
 	
 	}
 }

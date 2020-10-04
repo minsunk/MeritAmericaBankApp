@@ -60,7 +60,7 @@ public class AccountHolder {
 		return myCheckingAccount;
 	}
 	
-	public CheckingAccount getSavingsAccount() {
+	public SavingsAccount getSavingsAccount() {
 		return mySavingsAccount;
 	}
 	
