@@ -1,18 +1,21 @@
 
 public class CheckingAccount {
 	
- final double ANNUAL_INTEREST_RATE =  .0001;
 	protected double currentBalance;
-	
+	final double ANNUAL_INTEREST_RATE =  .0001;
+
 	public CheckingAccount(double openingBalance) {
 		currentBalance = openingBalance;
 	}
+	
 	public double getBalance() {
 		return currentBalance;
 	}
+	
 	public double getInterest() {
 		return ANNUAL_INTEREST_RATE; 
 	}
+	
 	public boolean withdraw(double amount) {
 		if (amount >= 0 && amount <= currentBalance) {
 			currentBalance -= amount;

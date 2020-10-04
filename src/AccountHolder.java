@@ -25,7 +25,7 @@ public class AccountHolder {
 		mySavingsAccount = new SavingsAccount(savingAccountOpeningBalance);
 	}
 	
-	public String getFirstName() {
+	public String getFirstName(String firstName) {
 		return myFirstName;
 	}
 	
@@ -40,7 +40,7 @@ public class AccountHolder {
 	public void setMiddleName(String middleName) {
 		myMiddleName = middleName;
 	}
-	public String getLastName() {
+	public String getLastName(String lastName) {
 		return myLastName;
 	}
 	
@@ -48,7 +48,7 @@ public class AccountHolder {
 		myLastName = lastName;
 	}
 	
-	public String getSSN() {
+	public String getSSN(String ssn) {
 		return mySsn;
 	}
 	
