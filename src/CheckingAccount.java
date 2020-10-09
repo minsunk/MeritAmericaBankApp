@@ -41,7 +41,7 @@ public class CheckingAccount {
 	public String toString(){
 		return "Checking Account Balance: $" + currentBalance + "\n" +
 			"Checking Account Interest Rate: " + ANNUAL_INTEREST_RATE*100 + "\n" +
-			"Checking Account Balance in 3 years: $" + futureValue(3) + "\n";		
+			"Checking Account Balance in 3 years: $" + String.format("%.2f", futureValue(3)) + "\n";		
 	}
 	
 	

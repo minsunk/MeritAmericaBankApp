@@ -16,16 +16,16 @@ public class AccountHolder {
 		mySavingsAccount = new SavingsAccount(0.0);
 	}
 	public AccountHolder(String firstName, String middleName, String lastName, String ssn,
-			double checkingAccountOpeningBalance, double savingAccountOpeningBalance) {
+			double checkingAccountOpeningBalance, double savingsAccountOpeningBalance) {
 		myFirstName = firstName;
 		myMiddleName = middleName;
 		myLastName = lastName;
 		mySsn = ssn;
 		myCheckingAccount = new CheckingAccount(checkingAccountOpeningBalance);
-		mySavingsAccount = new SavingsAccount(savingAccountOpeningBalance);
+		mySavingsAccount = new SavingsAccount(savingsAccountOpeningBalance);
 	}
 	
-	public String getFirstName(String firstName) {
+	public String getFirstName() {
 		return myFirstName;
 	}
 	
@@ -33,14 +33,14 @@ public class AccountHolder {
 		myFirstName = firstName;
 	}
 	
-	public String getMiddleName(String middleName) {
+	public String getMiddleName() {
 		return myMiddleName;
 	}
 	
 	public void setMiddleName(String middleName) {
 		myMiddleName = middleName;
 	}
-	public String getLastName(String lastName) {
+	public String getLastName() {
 		return myLastName;
 	}
 	
@@ -48,7 +48,7 @@ public class AccountHolder {
 		myLastName = lastName;
 	}
 	
-	public String getSSN(String ssn) {
+	public String getSSN() {
 		return mySsn;
 	}
 	
