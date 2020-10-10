@@ -4,71 +4,234 @@ public class AccountHolder {
 	private String myMiddleName;
 	private String myLastName;
 	private String mySsn;
-	private CheckingAccount myCheckingAccount;
-	private SavingsAccount mySavingsAccount;
+	private CheckingAccount[] checkingAccountList;
+	private SavingsAccount[] savingsAccountList;
+	private CDAccount[] cdAccountList;
+	private final double CHECKING_ACCOUNT_INTEREST_RATE = 0.0001;
+	private final double SAVINGS_ACCOUNT_INTEREST_RATE = 0.01;
+	private final double COMBINED_BALANCE_LIMIT = 250000;
+
 	
-	public AccountHolder() {
-		myFirstName = "";
-		myMiddleName = "";
-		myLastName =  "";
-		mySsn = "";
-		myCheckingAccount = new CheckingAccount(0.0);
-		mySavingsAccount = new SavingsAccount(0.0);
-	}
-	public AccountHolder(String firstName, String middleName, String lastName, String ssn,
-			double checkingAccountOpeningBalance, double savingsAccountOpeningBalance) {
+	//1. AccountHolder(String firstName, String middleName, String lastName, String ssn)
+	
+	public AccountHolder(String firstName, String middleName, String lastName, String ssn) {
 		myFirstName = firstName;
 		myMiddleName = middleName;
 		myLastName = lastName;
 		mySsn = ssn;
-		myCheckingAccount = new CheckingAccount(checkingAccountOpeningBalance);
-		mySavingsAccount = new SavingsAccount(savingsAccountOpeningBalance);
+		checkingAccountList = null;
+		savingsAccountList = null;
 	}
 	
+	//2.Sting getFirstName()	
 	public String getFirstName() {
 		return myFirstName;
 	}
 	
+	//3.void setFirstName()	
 	public void setFirstName(String firstName) {
 		myFirstName = firstName;
 	}
 	
+	//4.String getMiddleName()	
 	public String getMiddleName() {
 		return myMiddleName;
 	}
 	
+	//5.void setMiddleName()
 	public void setMiddleName(String middleName) {
 		myMiddleName = middleName;
 	}
+
+	//6.String getLastName()
 	public String getLastName() {
 		return myLastName;
 	}
 	
+	//7.void setLastName()	
 	public void setLastName(String lastName) {
 		myLastName = lastName;
 	}
 	
+	//8.String getSSN()	
 	public String getSSN() {
 		return mySsn;
 	}
-	
+
+	//9.void setSSN()	
 	public void setSSN(String ssn) {
 		mySsn = ssn;
 	}
 
-	public CheckingAccount getCheckingAccount() {
-		return myCheckingAccount;
+	//	10. CheckingAccount addCheckingAccount(double openingBalance)
+	public CheckingAccount addCheckingAccount(double openingBalance) {
+		if (getCombinedBalance() > COMBINED_BALANCE_LIMIT) {
+			return null;
+		} else {
+			if (checkingAccountList == null) {
+				checkingAccountList = new CheckingAccount[1];
+				
+				checkingAccountList[0] = new CheckingAccount(openingBalance, CHECKING_ACCOUNT_INTEREST_RATE);
+			} else {
+				CheckingAccount[] tempCheckingAccount = new CheckingAccount[checkingAccountList.length + 1];
+				for (int i = 0; i < checkingAccountList.length; i++) {
+					tempCheckingAccount[i] = checkingAccountList[i];
+				}
+				tempCheckingAccount[checkingAccountList.length] = new CheckingAccount(openingBalance, CHECKING_ACCOUNT_INTEREST_RATE);
+				checkingAccountList = tempCheckingAccount;
+			}
+			
+			return checkingAccountList[checkingAccountList.length -1];
+		}
+	}
+
+	//	11. CheckingAccount addCheckingAccount(CheckingAccount checkingAccount)
+	public CheckingAccount addCheckingAccount(CheckingAccount checkingAccount) {
+		if (getCombinedBalance() > COMBINED_BALANCE_LIMIT) {
+			return null;
+		} else {
+			if (checkingAccountList == null) {
+				checkingAccountList = new CheckingAccount[1];
+				checkingAccountList[0] = checkingAccount;
+			} else {
+				CheckingAccount[] tempCheckingAccount = new CheckingAccount[checkingAccountList.length + 1];
+				for (int i = 0; i < checkingAccountList.length; i++) {
+					tempCheckingAccount[i] = checkingAccountList[i];
+				}
+				tempCheckingAccount[checkingAccountList.length] = checkingAccount;
+				checkingAccountList = tempCheckingAccount;
+			}
+			
+			return checkingAccountList[checkingAccountList.length -1];
+		}
+	}
+
+	//12. CheckingAccount[] getCheckingAccounts()
+	public CheckingAccount[] getCheckingAccounts() {
+		return checkingAccountList;
 	}
 	
-	public SavingsAccount getSavingsAccount() {
-		return mySavingsAccount;
+	//13. int getNumberOfCheckingAccounts()
+	public int getNumberOfCheckingAccounts() {
+		return checkingAccountList.length;
+	}
+	//14. double getCheckingBalance()
+	public double getCheckingBalance() {
+		double totalBalance = 0.0;
+		for (int i=0; i < checkingAccountList.length; i++) {
+			totalBalance += checkingAccountList[i].getBalance();
+		}
+		return totalBalance;
+	}
+	//15. SavingsAccount addSavingsAccount(double openingBalance)
+	public SavingsAccount addSavingsAccount(double openingBalance) {
+		if (getCombinedBalance() > COMBINED_BALANCE_LIMIT) {
+			return null;
+		} else {
+			if (savingsAccountList == null) {
+				savingsAccountList = new SavingsAccount[1];
+				
+				savingsAccountList[0] = new SavingsAccount(openingBalance, SAVINGS_ACCOUNT_INTEREST_RATE);
+			} else {
+				SavingsAccount[] tempSavingsAccount = new SavingsAccount[savingsAccountList.length + 1];
+				for (int i = 0; i < savingsAccountList.length; i++) {
+					tempSavingsAccount[i] = savingsAccountList[i];
+				}
+				tempSavingsAccount[savingsAccountList.length] = new SavingsAccount(openingBalance, SAVINGS_ACCOUNT_INTEREST_RATE);
+				savingsAccountList = tempSavingsAccount;
+			}
+			return savingsAccountList[savingsAccountList.length - 1];
+		}
 	}
 	
-	public String toString(){
-		return "Name: " + myFirstName + " " + myMiddleName + " " + myLastName + "\n" +
-			"SSN: " + mySsn + "\n" + 
-			myCheckingAccount.toString() +
-			mySavingsAccount.toString();
-					
+	
+	//16. SavingsAccount addSavingsAccount(SavingsAccount savingsAccount)
+	public SavingsAccount addSavingsAccount(SavingsAccount savingsAccount) {
+		if (getCombinedBalance() > COMBINED_BALANCE_LIMIT) {
+			return null;
+		} else {
+			if (savingsAccountList == null) {
+				savingsAccountList = new SavingsAccount[1];
+			
+			} else {
+				SavingsAccount[] tempSavingsAccount = new SavingsAccount[savingsAccountList.length +1];
+				for (int i = 0; i < savingsAccountList.length; i++) {
+					tempSavingsAccount[i] = savingsAccountList[i];
+				}
+				savingsAccountList = tempSavingsAccount;
+			}
+			return savingsAccountList[savingsAccountList.length - 1];
+		}
 	}
+	
+	//17. SavingsAccount[]getSavingsAccounts()
+	public SavingsAccount[] getSavingsAccounts(){
+		return savingsAccountList;
+	}
+	//18. int getNumberOfSavingsAccounts()
+	public int getNumberOfSavingsAccounts() {
+		return savingsAccountList.length;
+	}
+	//19. double getSavingsBalance()
+	public double getSavingsBalance() {
+		double totalBalance = 0.0; 
+		for (int i = 0 ; i < savingsAccountList.length ; i++) {
+			totalBalance += savingsAccountList[i].getBalance();
+		}
+		return totalBalance;
+	}
+
+	//20. CDAccount addCDAccount(CDOffering offering, double openingBalance)
+	public void addCDAccount(CDOffering offering, double openingBalance){
+		if (cdAccountList == null) {
+			cdAccountList = new CDAccount[1];
+			cdAccountList[0] = new CDAccount(offering, openingBalance);
+		} else {
+			CDAccount[] tempCDAccount = new CDAccount[cdAccountList.length + 1];
+			for ( int i=0; i < cdAccountList.length; i++) {
+				cdAccountList[i] = tempCDAccount[i];
+			}
+			tempCDAccount[cdAccountList.length] = new CDAccount(offering, openingBalance);
+			cdAccountList = tempCDAccount;
+		}
+	}
+
+	//21. CDAccount addCDAccount(CDAccount cdAccount)
+	public void addCDACcount(CDAccount cdAccount) {
+		if (cdAccountList == null) {
+			cdAccountList = new CDAccount[1];
+			cdAccountList[0] = cdAccount;
+		} else {
+			CDAccount[] tempCdAccount = new CDAccount[cdAccountList.length + 1];
+			for (int i = 0; i < cdAccountList.length; i++) {
+				tempCdAccount[i] = cdAccountList[i];
+			}
+			tempCdAccount[cdAccountList.length] = cdAccount;
+			cdAccountList = tempCdAccount;
+		}
+	}
+
+	//22. CDAccount[] getCDACcounts()
+	public CDAccount[] getCDAccounts() {
+		return cdAccountList;
+	}
+
+	//23. int getNumberOfCDAccounts()
+	public int getNumberofCDAccounts() {
+		return cdAccountList.length;
+	}
+	//24. double getCDBalance()
+	public double getCDBalance() {
+		double totalCdBalance = 0.0;
+		for (int i = 0; i < cdAccountList.length; i++){
+			totalCdBalance += cdAccountList[i].getBalance();
+		}
+		return totalCdBalance;
+	}
+	
+//25. double getCombinedBalance()
+	public double getCombinedBalance(){
+		return getCheckingBalance() + getSavingsBalance();
+	}
+	
 }

@@ -1,7 +1,8 @@
-
 public class MeritBank {
 	private static AccountHolder[] accountHolderList = null;
 	private static CDOffering[] cdOfferingList = null;
+	private static int accountNumber = 999;
+	
 	//1. static void addAccountHolder(AccountHolder accountHolder)
 	public static void addAccountHolder(AccountHolder accountHolder) {
 		if (accountHolderList == null) {
@@ -55,12 +56,26 @@ public class MeritBank {
 	
 	}
 	//static void clearCDOfferings()
+	public static void clearCDOfferings(){
+		cdOfferingList = null;
+	}
 	//static void setCDOfferings(CDOffering[] offerings)
 	public static void setCDOfferings(CDOffering[] offerings) {
 		cdOfferingList = offerings;
 	}
 	//static long getNextAccountNumber()
+	public static int getNextAccountNumber(){
+		accountNumber++;
+		return accountNumber;
+	}
 	//static double totalBalances()
-	//static double futureValue(double presentvalue, double interestRate, int term)hematoma
+	public static double totalBalances(){
+		double balanceTotal = 0;
+		for (int i = 0; i < accountHolderList.length; i++) {
+			balanceTotal += (accountHolderList[i].getCombinedBalance() + accountHolderList[i].getCDBalance());
+		}
+		return balanceTotal;		
+	}
+	//static double futureValue(double presentvalue, double interestRate, int term)
 	
 }
